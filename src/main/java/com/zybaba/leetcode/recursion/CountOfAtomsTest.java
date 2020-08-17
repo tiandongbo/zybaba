@@ -29,11 +29,20 @@ public class CountOfAtomsTest {
         Arrays.sort(keys);
         for (String key : keys) {
             asn = asn.length() > 0 ? asn + ", '" + key + "': " + element.get(key) : "'" + key + "': " + element.get(key);
+            //if (element.get(key)==1)
+            //{
+            //    asn = asn + key;
+            //}
+            //else {
+            //    asn = asn + key + element.get(key);
+            //}
         }
+        //return asn;
         return "{" + asn + "}";
     }
 
     private void count(String subFormula, int times) {
+
         k = k + subFormula.charAt(0);
         int n = 0;
         for (int i = 1; i < subFormula.length(); i++) {
@@ -75,6 +84,16 @@ public class CountOfAtomsTest {
     public void testCase01() {
         CountOfAtomsTest solution = new CountOfAtomsTest();
         String formula = "H2O";
+        String expected = "{'H': 2, 'O': 1}";
+        String actual = solution.countOfAtoms(formula);
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testCase03() {
+        CountOfAtomsTest solution = new CountOfAtomsTest();
+        String formula = " Mg(OH)2";
         String expected = "{'H': 2, 'O': 1}";
         String actual = solution.countOfAtoms(formula);
         assertEquals(expected, actual);
