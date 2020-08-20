@@ -27,47 +27,34 @@ import org.junit.Test;
  * 输出: 3
  * 解释: 它可以解码为 "BZ" (2 26), "VF" (22 6), 或者 "BBF" (2 2 6) 。
  * 通过次数62,323提交次数257,105
+ * <p>
+ * 定义dp[i]是nums前i个字符可以得到的解码种数，假设之前的字符串是abcx，现在新加入了y，则有以下5种情况：
+ * <p>
+ * 如果x=='0'，且y=='0'，无法解码，返回0；
+ * 如果只有x=='0'，则y只能单独放在最后，不能与x合并(不能以0开头)，此时有：
+ * dp[i] = dp[i-1]
+ * 如果只有y=='0'，则y不能单独放置，必须与x合并，并且如果合并结果大于26，返回0，否则有：
+ * dp[i] = dp[i-2]
+ * 如果 xy<=26: 则y可以“单独”放在abcx的每个解码结果之后后，并且如果abcx以x单独结尾，此时可以合并xy作为结尾，而这种解码种数就是abc的解码结果，此时有：
+ * dp[i+1] = dp[i] + dp[i-1]
+ * 如果 xy>26: 此时x又不能与y合并，y只能单独放在dp[i]的每一种情况的最后，此时有：
+ * dp[i+1] = dp[i]
+ * <p>
+ * 作者：zackqf
+ * 链接：https://leetcode-cn.com/problems/decode-ways/solution/javajie-ti-si-lu-xiang-jie-by-zackqf/
+ * 来源：力扣（LeetCode）
+ * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
 public class NumDecodingsTest {
     public int numDecodings(String s) {
-        int i = 0;
-        for (int j = 0; j < s.length(); j++) {
-            if (s.charAt(j) == '0') {
-                i++;
-                break;
-            }
 
-        }
-        s = s.substring(i);
-        return dfs("", s, 0);
+        return -1;
     }
 
-    public int dfs(String s, String leftStr, int num) {
-        if (leftStr == null || leftStr.length() == 0) {
-            return num;
-        }
-        char c = leftStr.charAt(0);
-
-        String temp = s + c;
-        boolean okFlag = true;
-        for (int i = 0; i < temp.length() - 2; i++) {
-            if (Integer.valueOf(temp.substring(i, 2)) > 26) {
-                okFlag = false;
-                break;
-            }
-        }
-        if (okFlag) {
-            num++;
-        }
-        if (leftStr.length() > 1) {
-            return dfs(s + c, leftStr.substring(1), num);
-        }
-        return dfs(s + c, "", num);
-    }
 
     @Test
     public void testCase01() {
-        String s = "0226";
+        String s = "226";
         int expected = 3;
         NumDecodingsTest solution = new NumDecodingsTest();
         int actual = solution.numDecodings(s);
