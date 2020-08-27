@@ -13,14 +13,15 @@ public class ShipWithinDaysTest {
 
     public int shipWithinDays(int[] weights, int D) {
         int low = 0;
-        int high = 0;
-        //int high = Integer.MAX_VALUE;
-        for (int i = 0; i < weights.length; i++) {
-            high = high + weights[i];
-            low = Math.max(low, weights[i]);
-        }
-        low --;
-        high++;
+        //int high = 0;
+        int high = Integer.MAX_VALUE;
+        // 直接去MAX_VALUE 性能更好
+        //for (int i = 0; i < weights.length; i++) {
+        //    high = high + weights[i];
+        //    low = Math.max(low, weights[i]);
+        //}
+        //low --;
+        //high++;
         while (low < high) {
             int mid = low + (high - low) / 2;
             if (canShipping(weights, D, mid)) {
