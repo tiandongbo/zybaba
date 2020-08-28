@@ -5,6 +5,8 @@ import java.util.Arrays;
 /**
  * @author tiandongbo
  * @date 2020/08/25 23:08
+ * https://leetcode-cn.com/submissions/detail/
+ * 滑动窗口 与动态规划
  */
 public class FindLengthOfLCISTest {
     public int findLengthOfLCIS(int[] nums) {
