@@ -47,8 +47,40 @@ import org.junit.Test;
  */
 public class NumDecodingsTest {
     public int numDecodings(String s) {
-
-        return -1;
+        if (s == null || s.length() == 0 || s.charAt(0) == '0') {
+            return 0;
+        }
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 1; i < s.length(); i++) {
+            char c = s.charAt(i);
+            char p = s.charAt(i - 1);
+            int v = Integer.parseInt(p + "" + c);
+            if (v == 0) {
+                return 0;
+            }
+            if (c == '0') {
+                if (v<=20){
+                dp[i + 1] = dp[i - 1];}
+                else{
+                    return 0;
+                }
+                continue;
+            }
+            if (v < 10) {
+                    dp[i + 1] = dp[i - 1];
+                continue;
+            }
+            if (v >= 10 && v <= 26) {
+                    dp[i + 1] = dp[i] + dp[i - 1];
+                continue;
+            }
+            if (v > 26) {
+                    dp[i + 1] = dp[i];
+            }
+        }
+        return dp[s.length()];
     }
 
 
@@ -75,6 +107,61 @@ public class NumDecodingsTest {
     @Test
     public void testCase03() {
         String s = "27";
+        int expected = 1;
+        NumDecodingsTest solution = new NumDecodingsTest();
+        int actual = solution.numDecodings(s);
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCase04() {
+        String s = "12";
+        int expected = 2;
+        NumDecodingsTest solution = new NumDecodingsTest();
+        int actual = solution.numDecodings(s);
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCase05() {
+        String s = "10";
+        int expected = 1;
+        NumDecodingsTest solution = new NumDecodingsTest();
+        int actual = solution.numDecodings(s);
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCase06() {
+        String s = "100";
+        int expected = 0;
+        NumDecodingsTest solution = new NumDecodingsTest();
+        int actual = solution.numDecodings(s);
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCase07() {
+        String s = "226";
+        System.out.println(s.substring(1, 1));
+    }
+
+    @Test
+    public void testCase08() {
+        String s = "230";
+        int expected = 0;
+        NumDecodingsTest solution = new NumDecodingsTest();
+        int actual = solution.numDecodings(s);
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
+    }
+    @Test
+    public void testCase09() {
+        String s = "227";
         int expected = 2;
         NumDecodingsTest solution = new NumDecodingsTest();
         int actual = solution.numDecodings(s);

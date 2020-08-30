@@ -22,6 +22,7 @@ public class ListTest {
         for (String s: strings){
             System.out.println(s);
         }
+
         //数组创建list
         String[] s = {"a","c","b"};
         List list1 = Arrays.asList(s);

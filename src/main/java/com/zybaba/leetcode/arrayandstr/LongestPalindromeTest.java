@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author tiandongbo
  * @date 2020/06/11 22:06
+ * https://leetcode-cn.com/problems/longest-palindromic-substring/
  */
 public class LongestPalindromeTest {
     public String longestPalindrome(String s) {
