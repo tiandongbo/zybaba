@@ -3,6 +3,8 @@ package com.zybaba.leetcode.arrayandstr;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Stack;
+
 /**
  * @author tiandongbo
  * @date 2020/08/28 22:37
@@ -33,38 +35,25 @@ public class LongestValidParenthesesTest {
     }
 
     public int longestValidParentheses(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
         int ans = 0;
-        String[] dp = new String[s.length()];
-        String ansStr;
-
-        if (s.charAt(0) == '(') {
-            dp[0] = "(";
-        } else {
-            dp[0] = "";
+        if (s == null || s.length() == 0) {
+            return ans;
         }
-        ansStr = dp[0];
-        for (int i = 1; i < s.length(); i++) {
-            String temp = dp[i - 1] + s.charAt(i);
-            int v = valid(temp);
-            if (v >= 0) {
-                dp[i] = temp;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
             } else {
-                dp[i] = "";
-            }
-            if (dp[i].length() > ansStr.length()) {
-                ansStr = dp[i];
-                // System.out.println(ansStr);
+                stack.pop();
+                if (stack.empty()) {
+                    stack.push(i);
+                } else {
+                    ans = Math.max(ans, i - stack.peek());
+                }
             }
         }
 
-        for (int i = 0; i < ansStr.length(); i++) {
-            if (ansStr.charAt(i) == ')') {
-                ans = ans + 2;
-            }
-        }
         return ans;
     }
 
@@ -110,16 +99,25 @@ public class LongestValidParenthesesTest {
         LongestValidParenthesesTest solution = new LongestValidParenthesesTest();
         String s = "()(()";
         int actual = solution.longestValidParentheses(s);
-        int expected = 4;
+        int expected = 2;
         System.out.println(actual);
         Assert.assertEquals(expected, actual);
-
     }
 
     @Test
     public void testCase05() {
         System.out.println(Integer.parseInt(""));
 
+    }
+
+    @Test
+    public void testCase04() {
+        LongestValidParenthesesTest solution = new LongestValidParenthesesTest();
+        String s = ")()(())";
+        int actual = solution.longestValidParentheses(s);
+        int expected = 6;
+        System.out.println(actual);
+        Assert.assertEquals(expected, actual);
     }
 }
 
