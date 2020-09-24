@@ -13,37 +13,27 @@ import java.util.List;
 public class GenerateParenthesisTest {
     public List<String> generateParenthesis(int n) {
         List<String> combinations = new ArrayList<String>();
-        generateAll(new char[2 * n], 0, combinations);
+        dfs("", 0, 0, n, combinations);
         return combinations;
     }
 
-    public void generateAll(char[] current, int pos, List<String> result) {
-        if (pos == current.length) {
-            if (valid(current)) {
-                result.add(new String(current));
-            }
-        } else {
-            current[pos] = '(';
-            generateAll(current, pos + 1, result);
-            current[pos] = ')';
-            generateAll(current, pos + 1, result);
+    private void dfs(String curStr, int left, int right, int n, List<String> res) {
+        if (left == n && right == n) {
+            res.add(curStr);
+            return;
+        }
+        // 剪枝
+        if (left < right) {
+            return;
+        }
+        if (left < n) {
+            dfs(curStr + "(", left + 1, right, n, res);
+        }
+        if (right < n) {
+            dfs(curStr + ")", left, right + 1, n, res);
         }
     }
 
-    public boolean valid(char[] current) {
-        int balance = 0;
-        for (char c : current) {
-            if (c == '(') {
-                ++balance;
-            } else {
-                --balance;
-            }
-            if (balance < 0) {
-                return false;
-            }
-        }
-        return balance == 0;
-    }
 
     public void backtrack(List<String> ans, StringBuilder cur, int open, int close, int max) {
         if (cur.length() == max * 2) {
