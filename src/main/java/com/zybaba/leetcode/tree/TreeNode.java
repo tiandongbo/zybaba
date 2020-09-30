@@ -1,7 +1,6 @@
 package com.zybaba.leetcode.tree;
 
 
-
 import java.util.*;
 
 
@@ -12,6 +11,15 @@ public class TreeNode {
 
     TreeNode(int x) {
         val = x;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+
+    TreeNode() {
     }
 
     public static TreeNode createTree(Integer[] nodes) {
@@ -118,7 +126,7 @@ public class TreeNode {
             while (node != null) {
                 list.add(node.val);
                 stack.push(node);
-                node= node.left;
+                node = node.left;
             }
             node = stack.pop();
             node = node.right;

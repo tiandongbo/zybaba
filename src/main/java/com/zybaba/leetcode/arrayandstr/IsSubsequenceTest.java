@@ -24,7 +24,6 @@ public class IsSubsequenceTest {
     @Test
     public void testCase01() {
         String t = "01234";
-
         System.out.println(t.substring(t.indexOf("2")));
     }
 }
