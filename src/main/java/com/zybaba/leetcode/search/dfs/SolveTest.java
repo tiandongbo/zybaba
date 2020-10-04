@@ -1,9 +1,6 @@
-package com.zybaba.leetcode.search;
+package com.zybaba.leetcode.search.dfs;
 
 import org.junit.Test;
-
-import java.lang.reflect.Array;
-import java.util.*;
 
 /**
  * @author tiandongbo
